@@ -1,0 +1,22 @@
+
+Source: capi-media-tone-player
+Section: libs
+Priority: extra
+Maintainer: Seungkeun Lee <sngn.lee@samsung.com>, Kangho Hur<kagho.hur@samsung.com>
+Build-Depends: debhelper (>= 5), libmm-sound-dev , capi-base-common-dev , dlog-dev, capi-media-sound-manager-dev
+
+Package: capi-media-tone-player
+Architecture: any
+Depends: ${shilbs:Depends}, ${misc:Depends} , libmm-sound-0
+Description: A tone player library in Tizen Native API
+
+Package: capi-media-tone-player-dev
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, capi-media-tone-player (= ${Source-Version}), dlog-dev, capi-base-common-dev, libmm-sound-dev 
+Description: A tone player library in Tizen Native API (DEV)
+
+Package: capi-media-tone-player-dbg
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, capi-media-tone-player (= ${Source-Version})
+Description: A tone player library in Tizen Native API (DBG)
+
