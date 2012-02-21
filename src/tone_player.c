@@ -30,7 +30,7 @@
 #include <dlog.h>
 
 
-int _convert_tone_player_error_code(const char *func, int code){
+static int __convert_tone_player_error_code(const char *func, int code){
 	int ret = TONE_PLAYER_ERROR_NONE;
 	char *errorstr = NULL;
 	switch(code)
@@ -59,16 +59,16 @@ int tone_player_start(tone_type_e tone, sound_type_e type, int duration, int *id
 	int ret;
 	int player;
 	if( tone < TONE_TYPE_DEFAULT || tone > TONE_TYPE_CDMA_SIGNAL_OFF )
-		return _convert_tone_player_error_code(__func__, TONE_PLAYER_ERROR_INVALID_PARAMETER);
+		return __convert_tone_player_error_code(__func__, TONE_PLAYER_ERROR_INVALID_PARAMETER);
 	
 	ret = mm_sound_play_tone(tone, type , 1, duration, &player);
 
 	if( ret == 0 && id != NULL)
 		*id = player;		
-	return _convert_tone_player_error_code(__func__, ret);
+	return __convert_tone_player_error_code(__func__, ret);
 }
 
 int tone_player_stop(int id){
-	return _convert_tone_player_error_code(__func__, mm_sound_stop_sound(id));
+	return __convert_tone_player_error_code(__func__, mm_sound_stop_sound(id));
 }
 
