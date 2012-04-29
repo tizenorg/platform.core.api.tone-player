@@ -1,3 +1,19 @@
+capi-media-tone-player (0.1.0-9) unstable; urgency=low
+
+  * Fix dependency
+  * Git: slp-source.sec.samsung.net:slp/api/tone-player
+  * Tag: capi-media-tone-player_0.1.0-9
+
+ -- Seungkeun Lee <sngn.lee@samsung.com>  Wed, 14 Mar 2012 13:41:27 +0900
+
+capi-media-tone-player (0.1.0-8) unstable; urgency=low
+
+  * add static keyword , add sound-manager-dev depends
+  * Git: slp-source.sec.samsung.net:slp/api/tone-player
+  * Tag: capi-media-tone-player_0.1.0-8
+
+ -- Seungkeun Lee <sngn.lee@samsung.com>  Mon, 27 Feb 2012 19:35:23 +0900
+
 capi-media-tone-player (0.1.0-7) unstable; urgency=low
 
   * update version
