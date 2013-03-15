@@ -17,7 +17,7 @@
 
 
 
-#define LOG_TAG "TIZEN_N_TONE_PLAYER"
+#define LOG_TAG "CAPI_MEDIA_TONE_PLAYER"
 
 #include <sound_manager.h>
 #include <tone_player.h>
