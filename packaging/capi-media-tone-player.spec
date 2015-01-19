@@ -1,6 +1,6 @@
 Name:       capi-media-tone-player
 Summary:    A tone player library in Tizen C API
-Version:    0.1.0
+Version:    0.1.1
 Release:    16
 Group:      Multimedia/API
 License:    Apache-2.0

@@ -162,8 +162,10 @@ typedef enum
 	TONE_TYPE_CDMA_CALLDROP_LITE,     /**< CDMA CALLDROP LITE tone: 1480Hz 125ms, 1397Hz 125ms, 784Hz 125ms */
 	TONE_TYPE_CDMA_NETWORK_BUSY_ONE_SHOT,   /**< CDMA_NETWORK_BUSY_ONE_SHOT tone: 425Hz 500ms ON, 500ms OFF. */
 	TONE_TYPE_CDMA_ABBR_ALERT,      /**< CDMA_ABBR_ALERT tone: 1150Hz+770Hz 400ms ON */
-	TONE_TYPE_CDMA_SIGNAL_OFF    /**< CDMA_SIGNAL_OFF - silent tone */
-	
+	TONE_TYPE_CDMA_SIGNAL_OFF,    /**< CDMA_SIGNAL_OFF - silent tone */
+	TONE_TYPE_USER_DEFINED_LOW_FRE,                    /**< User Defined Tone: 100Hz continuous */
+	TONE_TYPE_USER_DEFINED_MED_FRE,                    /**< User Defined Tone: 200Hz continuous */
+	TONE_TYPE_USER_DEFINED_HIGH_FRE                   /**< User Defined Tone: 300Hz continuous */
 } tone_type_e;
 
 

@@ -49,24 +49,24 @@ static int __convert_tone_player_error_code(const char *func, int code){
 			ret = TONE_PLAYER_ERROR_INVALID_OPERATION;
 			errorstr = "INVALID_OPERATION";
 			break;
-	}	
+	}
 	LOGE( "[%s] %s(0x%08x) : core frameworks error code(0x%08x)",func, errorstr, ret, code);
 	return ret;
 }
 
-
 int tone_player_start(tone_type_e tone, sound_type_e type, int duration, int *id){
-	int ret;
-	int player;
-	if( tone < TONE_TYPE_DEFAULT || tone > TONE_TYPE_CDMA_SIGNAL_OFF )
-		return __convert_tone_player_error_code(__func__, TONE_PLAYER_ERROR_INVALID_PARAMETER);
-	
-	ret = mm_sound_play_tone(tone, type , 1, duration, &player);
+        int ret;
+        int player;
+        if( tone < TONE_TYPE_DEFAULT || tone > TONE_TYPE_USER_DEFINED_HIGH_FRE )
+                return __convert_tone_player_error_code(__func__, TONE_PLAYER_ERROR_INVALID_PARAMETER);
 
-	if( ret == 0 && id != NULL)
-		*id = player;		
-	return __convert_tone_player_error_code(__func__, ret);
+        ret = mm_sound_play_tone(tone, type , 1, duration, &player);
+
+        if( ret == 0 && id != NULL)
+                *id = player;
+        return __convert_tone_player_error_code(__func__, ret);
 }
+
 
 int tone_player_stop(int id){
 	return __convert_tone_player_error_code(__func__, mm_sound_stop_sound(id));
