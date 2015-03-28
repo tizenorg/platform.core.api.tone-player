@@ -11,7 +11,7 @@
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
-* limitations under the License. 
+* limitations under the License.
 */
 
 
@@ -35,7 +35,7 @@ gpointer GmainThread(gpointer data){
 
 void tone_play_test(){
 	int i ;
-	
+
 	for( i =0 ; i <= 106 ; i++){
 		printf("play %d sound\n", i);
 		tone_player_start(i, SOUND_TYPE_MEDIA ,500,NULL);
@@ -43,7 +43,7 @@ void tone_play_test(){
 
 	}
 
-//	tone_player_start(SOUND_TONE_DTMF_C, SOUND_TYPE_MEDIA ,100000,NULL);	
+//	tone_player_start(SOUND_TONE_DTMF_C, SOUND_TYPE_MEDIA ,100000,NULL);
 	sleep(1000);
 }
 

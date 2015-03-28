@@ -11,7 +11,7 @@
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
-* limitations under the License. 
+* limitations under the License.
 */
 
 
@@ -20,6 +20,7 @@
 #define LOG_TAG "CAPI_MEDIA_TONE_PLAYER"
 
 #include <sound_manager.h>
+#include <sound_manager_internal.h>
 #include <tone_player.h>
 #include <mm_sound.h>
 #include <mm_sound_private.h>
@@ -40,7 +41,7 @@ static int __convert_tone_player_error_code(const char *func, int code){
 			errorstr = "ERROR_NONE";
 			break;
 		case TONE_PLAYER_ERROR_INVALID_PARAMETER:
-		case MM_ERROR_INVALID_ARGUMENT: 
+		case MM_ERROR_INVALID_ARGUMENT:
 		case MM_ERROR_SOUND_INVALID_POINTER:
 			ret = TONE_PLAYER_ERROR_INVALID_PARAMETER;
 			errorstr = "INVALID_PARAMETER";
@@ -67,6 +68,32 @@ int tone_player_start(tone_type_e tone, sound_type_e type, int duration, int *id
         return __convert_tone_player_error_code(__func__, ret);
 }
 
+int tone_player_start_with_stream_info(tone_type_e tone, sound_stream_info_h stream_info, int duration, int * id){
+	int ret;
+	int player;
+	double vol = 1.0;
+	char *stream_type = NULL;
+	int stream_id;
+
+	if( tone < TONE_TYPE_DEFAULT || tone > TONE_TYPE_USER_DEFINED_HIGH_FRE )
+		return __convert_tone_player_error_code(__func__, TONE_PLAYER_ERROR_INVALID_PARAMETER);
+
+	ret = sound_manager_get_type_from_stream_information(stream_info, &stream_type);
+	if( ret )
+		return __convert_tone_player_error_code(__func__, ret);
+	ret = sound_manager_get_index_from_stream_information(stream_info, &stream_id);
+	if( ret )
+		return __convert_tone_player_error_code(__func__, ret);
+
+	ret = mm_sound_play_tone_with_stream_info(tone, stream_type, stream_id, vol, duration, &player);
+
+	if( ret == 0 && id != NULL)
+		*id = player;
+
+	return __convert_tone_player_error_code(__func__, ret);
+
+
+}
 
 int tone_player_stop(int id){
 	return __convert_tone_player_error_code(__func__, mm_sound_stop_sound(id));

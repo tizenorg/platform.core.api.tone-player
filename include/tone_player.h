@@ -11,7 +11,7 @@
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
-* limitations under the License. 
+* limitations under the License.
 */
 
 
@@ -41,17 +41,20 @@ extern "C"
  */
 
 /**
- * @brief Enumerations of error codes for wav player
+ * @brief Enumeration of error codes for wav player.
+ * @since_tizen @if MOBILE 2.3 @elseif WEARABLE 2.3.1 @endif
  */
 typedef enum
 {
-    TONE_PLAYER_ERROR_NONE        = TIZEN_ERROR_NONE,                      /**< Successful */
+    TONE_PLAYER_ERROR_NONE              = TIZEN_ERROR_NONE,                    /**< Successful */
     TONE_PLAYER_ERROR_INVALID_PARAMETER = TIZEN_ERROR_INVALID_PARAMETER,       /**< Invalid parameter */
     TONE_PLAYER_ERROR_INVALID_OPERATION = TIZEN_ERROR_INVALID_OPERATION,       /**< Invalid operation */
+    TONE_PLAYER_ERROR_NOT_SUPPORTED     = TIZEN_ERROR_NOT_SUPPORTED,           /**< Not supported (Since 3.0) */
 } tone_player_error_e;
 
 /**
- * @brief Enumerations of tone
+ * @brief Enumeration of tone.
+ * @since_tizen @if MOBILE 2.3 @elseif WEARABLE 2.3.1 @endif
  */
 typedef enum
 {
@@ -69,8 +72,8 @@ typedef enum
 	TONE_TYPE_DTMF_S,			   /**< Predefined DTMF Star - Asterisk (*) */
 	TONE_TYPE_DTMF_P,				/**< Predefined DTMF sharP (#) */
 	TONE_TYPE_DTMF_A,				/**< Predefined DTMF A (A) */
-	TONE_TYPE_DTMF_B,				/**< Predefined DTMF B (B) */	
-	TONE_TYPE_DTMF_C,				/**< Predefined DTMF C (C) */	
+	TONE_TYPE_DTMF_B,				/**< Predefined DTMF B (B) */
+	TONE_TYPE_DTMF_C,				/**< Predefined DTMF C (C) */
 	TONE_TYPE_DTMF_D,				/**< Predefined DTMF D (D) */
 	TONE_TYPE_SUP_DIAL,     /**< Call supervisory tone, Dial tone: CEPT: 425Hz, continuous */
 	TONE_TYPE_ANSI_DIAL,    /**< Call supervisory tone, Dial tone: ANSI (IS-95): 350Hz+440Hz, continuous */
@@ -181,17 +184,24 @@ typedef enum
 
 
 /**
+ * @deprecated Deprecated since 3.0. Use tone_player_start_with_stream_info() instead.
  * @brief Plays a tone.
+ *
+ * @since_tizen @if MOBILE 2.3 @elseif WEARABLE 2.3.1 @endif
+ *
+ * @remarks Sound can be mixed with other sounds if you don't control the sound session in sound-manager module since 3.0.\n
+ * 	You can refer to @ref CAPI_MEDIA_SUOND_MANAGER_MODULE.
  *
  * @param[in] tone	The tone type to play
  * @param[in] type	The sound type
- * @param[in] duration_ms	The tone duration in milliseconds\n
- *		-1 indicates an infinite duration
- * @param[out] id	The tone player ID ( can be set to NULL ) 
- * 
- * @return 0 on success, otherwise a negative error value.
+ * @param[in] duration_ms	The tone duration in milliseconds \n
+ *		                    @c -1 indicates an infinite duration.
+ * @param[out] id	The tone player ID ( can be set to @c NULL )
+ *
+ * @return @c 0 on success,
+ *         otherwise a negative error value
  * @retval #TONE_PLAYER_ERROR_NONE Successful
- * @retval #TONE_PLAYER_ERROR_INVALID_PARAMETER Invalid parameter 
+ * @retval #TONE_PLAYER_ERROR_INVALID_PARAMETER Invalid parameter
  * @retval #TONE_PLAYER_ERROR_INVALID_OPERATION Invalid operation
  *
  * @see tone_player_stop()
@@ -199,14 +209,40 @@ typedef enum
 int tone_player_start(tone_type_e tone, sound_type_e type, int duration_ms, int *id);
 
 /**
+ * @brief Plays a tone with stream information of sound-manager.
+ *
+ * @since_tizen 3.0
+ *
+ * @param[in] tone	The tone type to play
+ * @param[in] stream_info	The sound stream information handle
+ * @param[in] duration_ms	The tone duration in milliseconds \n
+ *		                    @c -1 indicates an infinite duration.
+ * @param[out] id	The tone player ID ( can be set to @c NULL )
+ *
+ * @return @c 0 on success,
+ *         otherwise a negative error value
+ * @retval #TONE_PLAYER_ERROR_NONE Successful
+ * @retval #TONE_PLAYER_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval #TONE_PLAYER_ERROR_INVALID_OPERATION Invalid operation
+ * @retval #TONE_PLAYER_ERROR_NOT_SUPPORTED Not supported
+ *
+ * @see tone_player_stop()
+ * @see sound_manager_create_stream_information()
+ * @see sound_manager_destroy_stream_information()
+ */
+int tone_player_start_with_stream_info(tone_type_e tone, sound_stream_info_h stream_info, int duration_ms, int *id);
+
+/**
  * @brief Stops playing the tone.
+ *
+ * @since_tizen @if MOBILE 2.3 @elseif WEARABLE 2.3.1 @endif
  *
  * @param[in] id	The tone player ID to stop
  *
  * @return 0 on success, otherwise a negative error value.
  * @retval #TONE_PLAYER_ERROR_NONE Successful
- * @retval #TONE_PLAYER_ERROR_INVALID_PARAMETER Invalid parameter 
- * @retval #TONE_PLAYER_ERROR_INVALID_OPERATION Invalid operation  
+ * @retval #TONE_PLAYER_ERROR_INVALID_PARAMETER Invalid parameter
+ * @retval #TONE_PLAYER_ERROR_INVALID_OPERATION Invalid operation
  *
  * @see tone_player_start()
  */
