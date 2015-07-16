@@ -46,10 +46,10 @@ extern "C"
  */
 typedef enum
 {
-    TONE_PLAYER_ERROR_NONE              = TIZEN_ERROR_NONE,                    /**< Successful */
-    TONE_PLAYER_ERROR_INVALID_PARAMETER = TIZEN_ERROR_INVALID_PARAMETER,       /**< Invalid parameter */
-    TONE_PLAYER_ERROR_INVALID_OPERATION = TIZEN_ERROR_INVALID_OPERATION,       /**< Invalid operation */
-    TONE_PLAYER_ERROR_NOT_SUPPORTED     = TIZEN_ERROR_NOT_SUPPORTED,           /**< Not supported (Since 3.0) */
+    TONE_PLAYER_ERROR_NONE               = TIZEN_ERROR_NONE,                    /**< Successful */
+    TONE_PLAYER_ERROR_INVALID_PARAMETER  = TIZEN_ERROR_INVALID_PARAMETER,       /**< Invalid parameter */
+    TONE_PLAYER_ERROR_INVALID_OPERATION  = TIZEN_ERROR_INVALID_OPERATION,       /**< Invalid operation */
+    TONE_PLAYER_ERROR_NOT_SUPPORTED_TYPE = TIZEN_ERROR_TONE_PLAYER | 0x01       /**< Not supported (Since 3.0) */
 } tone_player_error_e;
 
 /**
@@ -213,6 +213,8 @@ int tone_player_start(tone_type_e tone, sound_type_e type, int duration_ms, int 
  *
  * @since_tizen 3.0
  *
+ * @remarks Voice Recognition stream type is not supported in this API.
+ *
  * @param[in] tone	The tone type to play
  * @param[in] stream_info	The sound stream information handle
  * @param[in] duration_ms	The tone duration in milliseconds \n
@@ -224,7 +226,7 @@ int tone_player_start(tone_type_e tone, sound_type_e type, int duration_ms, int 
  * @retval #TONE_PLAYER_ERROR_NONE Successful
  * @retval #TONE_PLAYER_ERROR_INVALID_PARAMETER Invalid parameter
  * @retval #TONE_PLAYER_ERROR_INVALID_OPERATION Invalid operation
- * @retval #TONE_PLAYER_ERROR_NOT_SUPPORTED Not supported
+ * @retval #TONE_PLAYER_ERROR_NOT_SUPPORTED_TYPE Not supported stream type
  *
  * @see tone_player_stop()
  * @see sound_manager_create_stream_information()
