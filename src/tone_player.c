@@ -74,9 +74,14 @@ int tone_player_start_with_stream_info(tone_type_e tone, sound_stream_info_h str
 	double vol = 1.0;
 	char *stream_type = NULL;
 	int stream_id;
+	bool result = false;
 
-	if( tone < TONE_TYPE_DEFAULT || tone > TONE_TYPE_USER_DEFINED_HIGH_FRE )
+	if( tone < TONE_TYPE_DEFAULT || tone > TONE_TYPE_USER_DEFINED_HIGH_FRE || stream_info == NULL)
 		return __convert_tone_player_error_code(__func__, TONE_PLAYER_ERROR_INVALID_PARAMETER);
+
+	ret = sound_manager_is_available_stream_information(stream_info, NATIVE_API_TONE_PLAYER, &result);
+	if ( !result )
+		return __convert_wav_player_error_code(__func__, TONE_PLAYER_ERROR_NOT_SUPPORTED_TYPE);
 
 	ret = sound_manager_get_type_from_stream_information(stream_info, &stream_type);
 	if( ret )
