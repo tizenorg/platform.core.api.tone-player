@@ -44,23 +44,21 @@ extern "C"
  * @brief Enumeration of error codes for wav player.
  * @since_tizen @if MOBILE 2.3 @elseif WEARABLE 2.3.1 @endif
  */
-typedef enum
-{
-    TONE_PLAYER_ERROR_NONE               = TIZEN_ERROR_NONE,                    /**< Successful */
-    TONE_PLAYER_ERROR_INVALID_PARAMETER  = TIZEN_ERROR_INVALID_PARAMETER,       /**< Invalid parameter */
-    TONE_PLAYER_ERROR_INVALID_OPERATION  = TIZEN_ERROR_INVALID_OPERATION,       /**< Invalid operation */
-    TONE_PLAYER_ERROR_NOT_SUPPORTED_TYPE = TIZEN_ERROR_TONE_PLAYER | 0x01       /**< Not supported (Since 3.0) */
+typedef enum {
+	TONE_PLAYER_ERROR_NONE               = TIZEN_ERROR_NONE,                    /**< Successful */
+	TONE_PLAYER_ERROR_INVALID_PARAMETER  = TIZEN_ERROR_INVALID_PARAMETER,       /**< Invalid parameter */
+	TONE_PLAYER_ERROR_INVALID_OPERATION  = TIZEN_ERROR_INVALID_OPERATION,       /**< Invalid operation */
+	TONE_PLAYER_ERROR_NOT_SUPPORTED_TYPE = TIZEN_ERROR_TONE_PLAYER | 0x01       /**< Not supported (Since 3.0) */
 } tone_player_error_e;
 
 /**
  * @brief Enumeration of tone.
  * @since_tizen @if MOBILE 2.3 @elseif WEARABLE 2.3.1 @endif
  */
-typedef enum
-{
+typedef enum {
 	TONE_TYPE_DEFAULT = 0,			/**< The default tone */
 	TONE_TYPE_DTMF_0 = 0,				/**< Predefined DTMF 0 */
-	TONE_TYPE_DTMF_1, 				/**< Predefined DTMF 1 */
+	TONE_TYPE_DTMF_1,				/**< Predefined DTMF 1 */
 	TONE_TYPE_DTMF_2,				/**< Predefined DTMF 2 */
 	TONE_TYPE_DTMF_3,				/**< Predefined DTMF 3 */
 	TONE_TYPE_DTMF_4,				/**< Predefined DTMF 4 */
@@ -190,7 +188,7 @@ typedef enum
  * @since_tizen @if MOBILE 2.3 @elseif WEARABLE 2.3.1 @endif
  *
  * @remarks Sound can be mixed with other sounds if you don't control the sound session in sound-manager module since 3.0.\n
- * 	You can refer to @ref CAPI_MEDIA_SUOND_MANAGER_MODULE.
+ *	You can refer to @ref CAPI_MEDIA_SUOND_MANAGER_MODULE.
  *
  * @param[in] tone	The tone type to play
  * @param[in] type	The sound type

@@ -31,44 +31,46 @@
 #include <dlog.h>
 
 
-static int __convert_tone_player_error_code(const char *func, int code){
+static int __convert_tone_player_error_code(const char *func, int code)
+{
 	int ret = TONE_PLAYER_ERROR_NONE;
 	char *errorstr = NULL;
-	switch(code)
-	{
-		case MM_ERROR_NONE:
-			ret = TONE_PLAYER_ERROR_NONE;
-			errorstr = "ERROR_NONE";
-			break;
-		case TONE_PLAYER_ERROR_INVALID_PARAMETER:
-		case MM_ERROR_INVALID_ARGUMENT:
-		case MM_ERROR_SOUND_INVALID_POINTER:
-			ret = TONE_PLAYER_ERROR_INVALID_PARAMETER;
-			errorstr = "INVALID_PARAMETER";
-			break;
-		case MM_ERROR_SOUND_INTERNAL:
-			ret = TONE_PLAYER_ERROR_INVALID_OPERATION;
-			errorstr = "INVALID_OPERATION";
-			break;
+	switch (code) {
+	case MM_ERROR_NONE:
+		ret = TONE_PLAYER_ERROR_NONE;
+		errorstr = "ERROR_NONE";
+		break;
+	case TONE_PLAYER_ERROR_INVALID_PARAMETER:
+	case MM_ERROR_INVALID_ARGUMENT:
+	case MM_ERROR_SOUND_INVALID_POINTER:
+		ret = TONE_PLAYER_ERROR_INVALID_PARAMETER;
+		errorstr = "INVALID_PARAMETER";
+		break;
+	case MM_ERROR_SOUND_INTERNAL:
+		ret = TONE_PLAYER_ERROR_INVALID_OPERATION;
+		errorstr = "INVALID_OPERATION";
+		break;
 	}
-	LOGE( "[%s] %s(0x%08x) : core frameworks error code(0x%08x)",func, errorstr, ret, code);
+	LOGE("[%s] %s(0x%08x) : core frameworks error code(0x%08x)", func, errorstr, ret, code);
 	return ret;
 }
 
-int tone_player_start(tone_type_e tone, sound_type_e type, int duration, int *id){
-        int ret;
-        int player;
-        if( tone < TONE_TYPE_DEFAULT || tone > TONE_TYPE_USER_DEFINED_HIGH_FRE )
-                return __convert_tone_player_error_code(__func__, TONE_PLAYER_ERROR_INVALID_PARAMETER);
+int tone_player_start(tone_type_e tone, sound_type_e type, int duration, int *id)
+{
+	int ret;
+	int player;
+	if (tone < TONE_TYPE_DEFAULT || tone > TONE_TYPE_USER_DEFINED_HIGH_FRE)
+	return __convert_tone_player_error_code(__func__, TONE_PLAYER_ERROR_INVALID_PARAMETER);
 
-        ret = mm_sound_play_tone(tone, type , 1, duration, &player);
+	ret = mm_sound_play_tone(tone, type , 1, duration, &player);
 
-        if( ret == 0 && id != NULL)
-                *id = player;
-        return __convert_tone_player_error_code(__func__, ret);
+	if (ret == 0 && id != NULL)
+	*id = player;
+	return __convert_tone_player_error_code(__func__, ret);
 }
 
-int tone_player_start_with_stream_info(tone_type_e tone, sound_stream_info_h stream_info, int duration, int * id){
+int tone_player_start_with_stream_info(tone_type_e tone, sound_stream_info_h stream_info, int duration, int * id)
+{
 	int ret;
 	int player;
 	double vol = 1.0;
@@ -76,23 +78,23 @@ int tone_player_start_with_stream_info(tone_type_e tone, sound_stream_info_h str
 	int stream_id;
 	bool result = false;
 
-	if( tone < TONE_TYPE_DEFAULT || tone > TONE_TYPE_USER_DEFINED_HIGH_FRE || stream_info == NULL)
+	if (tone < TONE_TYPE_DEFAULT || tone > TONE_TYPE_USER_DEFINED_HIGH_FRE || stream_info == NULL)
 		return __convert_tone_player_error_code(__func__, TONE_PLAYER_ERROR_INVALID_PARAMETER);
 
 	ret = sound_manager_is_available_stream_information(stream_info, NATIVE_API_TONE_PLAYER, &result);
-	if ( !result )
+	if (!result)
 		return __convert_tone_player_error_code(__func__, TONE_PLAYER_ERROR_NOT_SUPPORTED_TYPE);
 
 	ret = sound_manager_get_type_from_stream_information(stream_info, &stream_type);
-	if( ret )
+	if (ret)
 		return __convert_tone_player_error_code(__func__, ret);
 	ret = sound_manager_get_index_from_stream_information(stream_info, &stream_id);
-	if( ret )
+	if (ret)
 		return __convert_tone_player_error_code(__func__, ret);
 
 	ret = mm_sound_play_tone_with_stream_info(tone, stream_type, stream_id, vol, duration, &player);
 
-	if( ret == 0 && id != NULL)
+	if (ret == 0 && id != NULL)
 		*id = player;
 
 	return __convert_tone_player_error_code(__func__, ret);
@@ -100,7 +102,8 @@ int tone_player_start_with_stream_info(tone_type_e tone, sound_stream_info_h str
 
 }
 
-int tone_player_stop(int id){
+int tone_player_stop(int id)
+{
 	return __convert_tone_player_error_code(__func__, mm_sound_stop_sound(id));
 }
 
