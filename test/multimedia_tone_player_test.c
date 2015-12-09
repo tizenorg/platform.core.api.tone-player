@@ -14,8 +14,6 @@
 * limitations under the License.
 */
 
-
-
 #include <stdio.h>
 #include <tone_player.h>
 #include <glib.h>
@@ -30,9 +28,10 @@
 static GMainLoop *g_mainloop = NULL;
 static GThread *event_thread;
 
-gpointer GmainThread(gpointer data) {
-	g_mainloop = g_main_loop_new (NULL, 0);
-	g_main_loop_run (g_mainloop);
+gpointer GmainThread(gpointer data)
+{
+	g_mainloop = g_main_loop_new(NULL, 0);
+	g_main_loop_run(g_mainloop);
 
 	return NULL;
 }
@@ -41,16 +40,16 @@ void help()
 {
 	printf("Usage : ");
 	printf("multimedia_tone_player_test [OPTION]\n\n"
-		   "  -f, --from                from which tone type\n"
-		   "  -t, --to                  to which tone type\n"
-		   "  -d, --duration            duration(ms)\n"
-		   "  -s, --sleep               sleep time after play start(ms)\n"
-		   "  -h, --help                help\n");
+			"  -f, --from                from which tone type\n"
+			"  -t, --to                  to which tone type\n"
+			"  -d, --duration            duration(ms)\n"
+			"  -s, --sleep               sleep time after play start(ms)\n"
+			"  -h, --help                help\n");
 }
 
 void tone_play_test(int from, int to, int duration, int sleep_time)
 {
-	int i ;
+	int i;
 
 	printf("From : %2d,   To : %2d,    Duration : %4d,  sleep_time : %4d\n", from, to, duration, sleep_time);
 
@@ -59,14 +58,14 @@ void tone_play_test(int from, int to, int duration, int sleep_time)
 		return;
 	}
 
-	for(i = from ;i <= to ;i++) {
+	for (i = from; i <= to; i++) {
 		printf("Play Tone : %d\n", i);
-		tone_player_start(i, SOUND_TYPE_MEDIA , duration, NULL);
+		tone_player_start(i, SOUND_TYPE_MEDIA, duration, NULL);
 		usleep(sleep_time * 1000);
 	}
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
 	GError *gerr = NULL;
 	int from = TONE_TYPE_DTMF_0, to = TONE_TYPE_DTMF_S;
@@ -76,36 +75,35 @@ int main(int argc, char** argv)
 		int opt;
 		int opt_idx = 0;
 
-		static struct option long_options[] =
-		{
-			{"from"    , required_argument, 0, 'f'},
-			{"to"      , required_argument, 0, 't'},
+		static struct option long_options[] = {
+			{"from", required_argument, 0, 'f'},
+			{"to", required_argument, 0, 't'},
 			{"duration", required_argument, 0, 'd'},
-			{"sleep"   , required_argument, 0, 's'},
-			{"help"    , no_argument      , 0, 'h'},
-			{ 0, 0, 0, 0 }
+			{"sleep", required_argument, 0, 's'},
+			{"help", no_argument, 0, 'h'},
+			{0, 0, 0, 0}
 		};
 
 		if ((opt = getopt_long(argc, argv, "f:t:d:s:h", long_options, &opt_idx)) == -1)
 			break;
 
 		switch (opt) {
-			case 'f':
-				from = atoi(optarg);
-				break;
-			case 't':
-				to = atoi(optarg);
-				break;
-			case 'd':
-				duration = atoi(optarg);
-				break;
-			case 's':
-				sleep_time = atoi(optarg);
-				break;
-			case 'h':
-			default:
-				help();
-				return 0;
+		case 'f':
+			from = atoi(optarg);
+			break;
+		case 't':
+			to = atoi(optarg);
+			break;
+		case 'd':
+			duration = atoi(optarg);
+			break;
+		case 's':
+			sleep_time = atoi(optarg);
+			break;
+		case 'h':
+		default:
+			help();
+			return 0;
 		}
 	}
 
